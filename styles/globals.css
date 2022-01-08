@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../public/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
+}
+
+body {
+  background-color: #D3D3D3;
+  font-family: Inter, sans-serif;
+}
+
+.navbar-brand {
+    display:flex;
+    align-items:center;
+}
+
+.bg-white {
+    background:#ffffff !important;
+}
+
+h1, h2 {
+    font-weight: 650;
+}
+
+pre { 
+    background-color: #eee;
+}
+
+.circular {
+    border-radius: 50%;
+    border:none;
+}
+
+.circular:hover, .cirular:active {
+    filter: brightness(125%);
+}
+
+.paypal {
+    background-color: #00457C;
+}
+
+i.bi-paypal {
+    color: white;
+}
+
+.footerText {
+    color: #A9A9A9;
+}
