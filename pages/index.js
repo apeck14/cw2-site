@@ -8,7 +8,7 @@ export default function Home() {
       </Head>
 
       <div className="container mt-3">
-        Under Construction! Site will be up & running with features soon.
+        <p>Under Construction! Site will be up & running with features soon.</p>
       </div>
     </>
   )
