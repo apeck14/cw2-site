@@ -45,3 +45,52 @@ i.bi-paypal {
 .footerText {
     color: #A9A9A9;
 }
+
+tr:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.badge-wrapper {
+    margin-bottom:-8px;
+}
+
+.tag {
+    font-size: small;
+    color:gray
+}
+
+.lb-header {
+    background-color: #485461;
+    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+}
+
+.bg-1 {
+    background-color: #facc6b;
+    background-image: linear-gradient(315deg, #facc6b 0%, #fabc3c 74%);
+}
+
+.bg-2 {
+    background-color: #bdd4e7;
+    background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
+}
+
+.bg-3 {
+    background-color: #772f1a;
+    background-image: linear-gradient(315deg, #772f1a 0%, #f2a65a 74%);
+}
+
+.bg-10 {
+    background-color: #7f53ac;
+    background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+}
+
+.bg-25 {
+    background-color: #045de9;
+    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+}
+
+.bg-100 {
+    background-color: #3bb78f;
+    background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
+}
