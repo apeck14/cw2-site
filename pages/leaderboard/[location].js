@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getClanBadge } from '../../data/functions'
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
@@ -28,6 +28,12 @@ const TableRow = styled.tr`
 export default function Leaderboard({ data, region }) {
     const router = useRouter();
     const [rows, setRows] = useState(25); //25 50 100 500
+
+    useEffect(() => {
+        if (!data) {
+            router.push('/leaderboard/global')
+        }
+    }, [data])
 
     const updateLocation = e => {
         const locationExists = locations.find(l => l.name === e.target.value);
@@ -81,7 +87,7 @@ export default function Leaderboard({ data, region }) {
                 <table className="table table-striped">
                     <tbody>
                         {
-                            data.items.slice(0, rows).map((c, index) => {
+                            data?.items.slice(0, rows).map((c, index) => {
                                 const regionURL = `/leaderboard/${locations.find(l => l.name === c.location.name).key}`;
                                 return (
                                     <TableRow key={index} className='rounded'>
@@ -121,6 +127,13 @@ export async function getServerSideProps({ params }) {
         region = 'Global'
     }
     else {
+        const locationExists = locations.find(l => l.key === params.location.toUpperCase());
+
+        if (!locationExists) return {
+            props: {
+                data: null
+            }
+        }
         const { id, name } = locations.find(l => l.key === params.location.toUpperCase());
 
         region = name;
@@ -134,15 +147,6 @@ export async function getServerSideProps({ params }) {
     }
     const res = await fetch(url, options);
     const data = await res.json();
-
-    if (!data.items) {
-        return {
-            redirect: {
-                destination: '/leaderboard/global',
-                permanent: false
-            },
-        }
-    }
 
     return {
         props: {
