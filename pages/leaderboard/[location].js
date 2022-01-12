@@ -31,9 +31,9 @@ export default function Leaderboard({ data, region }) {
 
     useEffect(() => {
         if (!data) {
-            router.push('/leaderboard/global')
+            return router.push('/leaderboard/global')
         }
-    }, [data])
+    }, [data]);
 
     const updateLocation = e => {
         const locationExists = locations.find(l => l.name === e.target.value);
