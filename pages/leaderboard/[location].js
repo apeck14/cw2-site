@@ -30,7 +30,7 @@ export default function Leaderboard({ data, region }) {
     const [rows, setRows] = useState(25); //25 50 100 500
 
     useEffect(() => {
-        if (!data) {
+        if (!data.items) {
             return router.replace('/')
         }
     }, [data]);
@@ -42,6 +42,8 @@ export default function Leaderboard({ data, region }) {
             router.replace(`/leaderboard/${locationExists.key.toLowerCase()}`)
         }
     }
+
+    console.log(data.items)
 
     return (
         <>
