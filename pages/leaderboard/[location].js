@@ -31,7 +31,7 @@ export default function Leaderboard({ data, region }) {
 
     useEffect(() => {
         if (!data) {
-            return router.push('/leaderboard/global')
+            return router.replace('/leaderboard/global')
         }
     }, [data]);
 
@@ -39,7 +39,7 @@ export default function Leaderboard({ data, region }) {
         const locationExists = locations.find(l => l.name === e.target.value);
 
         if (locationExists) {
-            router.push(`/leaderboard/${locationExists.key.toLowerCase()}`)
+            router.replace(`/leaderboard/${locationExists.key.toLowerCase()}`)
         }
     }
 
@@ -134,7 +134,7 @@ export async function getServerSideProps({ params }) {
                 data: null
             }
         }
-        const { id, name } = locations.find(l => l.key === params.location.toUpperCase());
+        const { id, name } = locationExists;
 
         region = name;
         url = `https://proxy.royaleapi.dev/v1/locations/${id}/rankings/clanwars/?limit=500`;
