@@ -31,7 +31,7 @@ export default function Leaderboard({ data, region }) {
 
     useEffect(() => {
         if (!data) {
-            return router.replace('/leaderboard/global')
+            return router.replace('/')
         }
     }, [data]);
 
