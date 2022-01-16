@@ -26,7 +26,8 @@ const TableRow = styled.tr`
 `
 
 export default function Leaderboard({ data, region }) {
-    console.log('test5')
+    console.log(data);
+    console.log(region)
     const router = useRouter();
     const [rows, setRows] = useState(25); //25 50 100 500
 
@@ -43,8 +44,6 @@ export default function Leaderboard({ data, region }) {
             router.replace(`/leaderboard/${locationExists.key.toLowerCase()}`)
         }
     }
-
-    console.log(data.items)
 
     return (
         <>
