@@ -148,6 +148,8 @@ export async function getServerSideProps({ params }) {
             'Authorization': `Bearer ${process.env.API_TOKEN}`
         }
     }
+
+    console.log(options)
     try {
         const res = await fetch(url, options);
         const data = await res.json();
