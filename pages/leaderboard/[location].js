@@ -90,7 +90,7 @@ export default function Leaderboard({ data, region }) {
                 <table className="table table-striped">
                     <tbody>
                         {
-                            data?.items.slice(0, rows).map((c, index) => {
+                            data?.items?.slice(0, rows).map((c, index) => {
                                 const regionURL = `/leaderboard/${locations.find(l => l.name === c.location.name).key}`;
                                 return (
                                     <TableRow key={index} className='rounded'>
