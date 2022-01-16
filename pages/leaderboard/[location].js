@@ -31,7 +31,7 @@ export default function Leaderboard({ data, region }) {
 
     useEffect(() => {
         if (!data.items) {
-            return router.replace('/')
+            router.replace('/')
         }
     }, [data]);
 
@@ -124,9 +124,13 @@ export async function getServerSideProps({ params }) {
     let url;
     let region;
 
+    console.log('test1')
+
     if (params.location === "global") {
         url = `https://proxy.royaleapi.dev/v1/locations/global/rankings/clanwars/?limit=500`;
         region = 'Global'
+
+        console.log(url)
     }
     else {
         const locationExists = locations.find(l => l.key === params.location.toUpperCase());
@@ -147,7 +151,12 @@ export async function getServerSideProps({ params }) {
             'Authorization': `Bearer ${process.env.API_TOKEN}`
         }
     }
+
+    console.log('test2')
     const res = await fetch(url, options);
+
+    console.log(res)
+
     const data = await res.json();
 
     console.log(data)
