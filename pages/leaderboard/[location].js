@@ -148,6 +148,8 @@ export async function getServerSideProps({ params }) {
         }
     }
 
+    console.log(options)
+
     try {
         const res = await fetch(url, options);
         const data = await res.json();
