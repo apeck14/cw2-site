@@ -149,7 +149,7 @@ export async function getServerSideProps({ params }) {
         }
     }
 
-    console.log(options)
+    console.log(process.env.API_TOKEN)
     try {
         const res = await fetch(url, options);
         const data = await res.json();
