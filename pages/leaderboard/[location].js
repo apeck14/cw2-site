@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { getClanBadge } from '../../data/functions'
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-require('dotenv').config();
 
 const locations = require('../../data/locations.json');
 
