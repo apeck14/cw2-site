@@ -26,6 +26,7 @@ const TableRow = styled.tr`
 `
 
 export default function Leaderboard({ data, region }) {
+    console.log('test5')
     const router = useRouter();
     const [rows, setRows] = useState(25); //25 50 100 500
 
