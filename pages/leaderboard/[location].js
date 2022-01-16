@@ -125,13 +125,9 @@ export async function getServerSideProps({ params }) {
     let url;
     let region;
 
-    console.log('test1')
-
     if (params.location === "global") {
         url = `https://proxy.royaleapi.dev/v1/locations/global/rankings/clanwars/?limit=500`;
         region = 'Global'
-
-        console.log(url)
     }
     else {
         const locationExists = locations.find(l => l.key === params.location.toUpperCase());
@@ -152,20 +148,23 @@ export async function getServerSideProps({ params }) {
             'Authorization': `Bearer ${process.env.API_TOKEN}`
         }
     }
+    try {
+        const res = await fetch(url, options);
+        const data = await res.json();
 
-    console.log('test2')
-    const res = await fetch(url, options);
-
-    console.log(res)
-
-    const data = await res.json();
-
-    console.log(data)
-
-    return {
-        props: {
-            data,
-            region
+        return {
+            props: {
+                data,
+                region
+            }
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return {
+            props: {
+                data: null
+            }
         }
     }
 }
