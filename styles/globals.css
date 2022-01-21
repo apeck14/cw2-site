@@ -46,11 +46,6 @@ i.bi-paypal {
     color: #A9A9A9;
 }
 
-tr:hover {
-    background-color: lightgray;
-    cursor: pointer;
-}
-
 .badge-wrapper {
     margin-bottom:-8px;
 }
@@ -93,4 +88,21 @@ tr:hover {
 .bg-100 {
     background-color: #3bb78f;
     background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
+}
+
+.riverRaceText {
+    background-color:#8d9eb8;
+}
+
+.cr-row {
+    background: linear-gradient(to bottom, #dce6f4 50%, #c8d6ec 50%);
+}
+
+.cr-row.active {
+    background: linear-gradient(to bottom, #f8d443 50%, #f4b82f 50%);
+}
+
+.cr-row:hover {
+    box-shadow:2px 2px 8px #888888;;
+    cursor: pointer;
 }

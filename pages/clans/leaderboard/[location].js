@@ -2,11 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { getClanBadge } from '../../data/functions'
+import { apiRequest, getClanBadge } from '../../../data/functions'
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
-const locations = require('../../data/locations.json');
+const locations = require('../../../data/locations.json');
 
 const HighlightLink = styled.a`
     text-decoration: none;
@@ -29,17 +29,11 @@ export default function Leaderboard({ data, region }) {
     const router = useRouter();
     const [rows, setRows] = useState(25); //25 50 100 500
 
-    useEffect(() => {
-        if (!data.items) {
-            router.replace('/')
-        }
-    }, [data]);
-
     const updateLocation = e => {
         const locationExists = locations.find(l => l.name === e.target.value);
 
         if (locationExists) {
-            router.replace(`/leaderboard/${locationExists.key.toLowerCase()}`)
+            router.replace(`/clans/leaderboard/${locationExists.key.toLowerCase()}`)
         }
     }
 
@@ -87,8 +81,9 @@ export default function Leaderboard({ data, region }) {
                 <table className="table table-striped">
                     <tbody>
                         {
-                            data?.items?.slice(0, rows).map((c, index) => {
-                                const regionURL = `/leaderboard/${locations.find(l => l.name === c.location.name).key}`;
+                            data?.slice(0, rows).map((c, index) => {
+                                const regionURL = `/clans/leaderboard/${locations.find(l => l.name === c.location.name).key}`;
+                                const clanURL = `/clans/${c.tag.substr(1)}`;
                                 return (
                                     <TableRow key={index} className='rounded'>
                                         <td scope="row">{c.rank}</td>
@@ -99,7 +94,11 @@ export default function Leaderboard({ data, region }) {
                                             </div>
                                         </td>
                                         <td>
-                                            <strong><HighlightLink>{c.name}</HighlightLink></strong>
+                                            <strong>
+                                                <Link href={clanURL}>
+                                                    <HighlightLink>{c.name}</HighlightLink>
+                                                </Link>
+                                            </strong>
                                             <small className="tag"> {c.tag}</small>
                                         </td>
                                         <td>
@@ -129,42 +128,34 @@ export async function getServerSideProps({ params }) {
     else {
         const locationExists = locations.find(l => l.key === params.location.toUpperCase());
 
-        if (!locationExists) return {
-            props: {
-                data: null
+        region = locationExists?.name;
+        url = `https://proxy.royaleapi.dev/v1/locations/${locationExists?.id}/rankings/clanwars/?limit=500`;
+    }
+
+    const data = await apiRequest(url);
+
+    if (!data.items) {
+        if (data?.reason === 'badRequest') {
+            return { //404
+                redirect: {
+                    destination: '/',
+                    permanent: false
+                }
             }
         }
-        const { id, name } = locationExists;
 
-        region = name;
-        url = `https://proxy.royaleapi.dev/v1/locations/${id}/rankings/clanwars/?limit=500`;
-    }
-
-    const options = {
-        headers: {
-            'Authorization': `Bearer ${process.env.API_TOKEN}`
-        }
-    }
-
-    console.log(options)
-
-    try {
-        const res = await fetch(url, options);
-        const data = await res.json();
-
-        return {
-            props: {
-                data,
-                region
+        return { //500
+            redirect: {
+                destination: '/',
+                permanent: false
             }
         }
     }
-    catch (e) {
-        console.log(e)
-        return {
-            props: {
-                data: null
-            }
+
+    return {
+        props: {
+            data: data.items,
+            region: region
         }
     }
 }

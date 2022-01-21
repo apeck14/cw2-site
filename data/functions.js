@@ -42,7 +42,7 @@ export function parseDate(date) {
 }
 
 export function getLastSeenStr(timestamp) {
-    if (!timestamp) return '0s';
+    if (!timestamp) return '0m';
     const now = new Date();
     const date = parseDate(timestamp);
 
@@ -61,9 +61,16 @@ export function getLastSeenStr(timestamp) {
         ms -= mins * 1000 * 60;
     }
 
-    const secs = Math.floor(ms / 1000);
-    if (secs) str += `${secs}s`
-
     return str.trim();
 }
 
+export async function apiRequest(url) {
+    const options = {
+        headers: {
+            'Authorization': `Bearer ${process.env.API_TOKEN}`
+        }
+    }
+
+    const res = await fetch(url, options);
+    return await res.json();
+}
