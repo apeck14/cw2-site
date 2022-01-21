@@ -108,7 +108,7 @@ export default function ClanRiverRace(props) {
                             const placementImage = (c.placementImgPath) ? <Image src={c.placementImgPath} height={30} width={30} /> : null;
                             return (
                                 <div className={`row cr-row mb-2 py-2 mw-100 mx-auto rounded ${(c.tag === clan.tag) ? `active` : ``}`}>
-                                    <div className="col d-flex align-items-center">
+                                    <div className="col-sm d-flex align-items-center">
                                         {placementImage}
                                         <Image className="ms-1" src={getClanBadge(c.badgeId, c.clanScore)} height="30" width="30" />
                                         <strong className="ms-1">{c.name}</strong>

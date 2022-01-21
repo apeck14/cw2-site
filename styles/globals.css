@@ -106,3 +106,9 @@ i.bi-paypal {
     box-shadow:2px 2px 8px #888888;;
     cursor: pointer;
 }
+
+@media (min-width: 500px) and (max-width: 800px){  
+  .riverRaceText{
+      font-size: 0.5rem;
+  }
+}
