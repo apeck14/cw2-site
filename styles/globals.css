@@ -107,7 +107,7 @@ i.bi-paypal {
     cursor: pointer;
 }
 
-@media (min-width: 500px) and (max-width: 800px){  
+@media (min-width: 0px) and (max-width: 800px){  
   .riverRaceText{
       font-size: 0.5rem;
   }
