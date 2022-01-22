@@ -38,16 +38,24 @@ export default function ClanRiverRace(props) {
 
     const clanStats = [
         {
+            title: 'Total Battles Remaining',
+            value: 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0)
+        },
+        {
+            title: 'Duels Remaining',
+            value: 50 - clan.participants.filter(p => p.decksUsedToday >= 2).length
+        },
+        {
             title: "Projected Medals",
-            value: getProjFame(data.clan, isColosseum)
+            value: getProjFame(clan, isColosseum)
         },
         {
             title: "Maximum Possible Medals",
-            value: getMaxFame(data.clan, isColosseum)
+            value: getMaxFame(clan, isColosseum)
         },
         {
             title: "Minimum Possible Medals",
-            value: getMinFame(data.clan, isColosseum)
+            value: getMinFame(clan, isColosseum)
         },
         {
             title: "Projected Place",
