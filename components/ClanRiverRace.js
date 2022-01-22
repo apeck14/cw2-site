@@ -34,7 +34,7 @@ export default function ClanRiverRace(props) {
         },
     ], []);
 
-    const tableData = useMemo(() => clan.participants.filter(p => clan.memberList.find(m => m.tag === p.tag) || p.fame > 0).sort((a, b) => b.fame - a.fame), []);
+    const tableData = useMemo(() => clan.participants.filter(p => clan.memberList.find(m => m.tag === p.tag) || p.fame > 0).sort((a, b) => b.fame - a.fame), [clan.participants]);
 
     const clanStats = [
         {
@@ -107,21 +107,21 @@ export default function ClanRiverRace(props) {
                         clans.map(c => {
                             const placementImage = (c.placementImgPath) ? <Image src={c.placementImgPath} height={30} width={30} /> : null;
                             return (
-                                <div className={`row cr-row mb-2 py-2 mw-100 mx-auto rounded ${(c.tag === clan.tag) ? `active` : ``}`}>
+                                <div className={`row cr-row mb-2 py-2 mw-100 mx-auto rounded ${(c.tag === clan.tag) ? `active` : ``}`} onClick={() => router.push(`/clans/${c.tag.substr(1)}/riverrace`)}>
                                     <div className="col-sm d-flex align-items-center">
                                         {placementImage}
                                         <Image className="ms-1" src={getClanBadge(c.badgeId, c.clanScore)} height="30" width="30" />
                                         <strong className="ms-1">{c.name}</strong>
                                     </div>
-                                    <div className="col-2 d-flex align-items-center">
+                                    <div className="col-2 d-flex align-items-center rr-col">
                                         <Image src="/images/icons/boat-movement.png" height="20" width="24" />
                                         <strong className="riverRaceText ms-1 px-2 rounded">{c.fame}</strong>
                                     </div>
-                                    <div className="col-2 d-flex align-items-center">
+                                    <div className="col-2 d-flex align-items-center rr-col">
                                         <Image src="/images/icons/battle.png" height="22" width="22" />
                                         <strong className="riverRaceText ms-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</strong>
                                     </div>
-                                    <div className="col-2 d-flex align-items-center">
+                                    <div className="col-2 d-flex align-items-center rr-col">
                                         <Image src="/images/icons/fame.png" height="20" width="16" />
                                         <strong className="riverRaceText ms-1 px-2 rounded">{c.periodPoints}</strong>
                                     </div>
