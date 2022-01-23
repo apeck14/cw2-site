@@ -2,9 +2,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "../styles/globals.css";
 import { BreakpointProvider } from 'react-socks';
-
 import { useEffect } from "react";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
     useEffect(() => {
@@ -12,10 +12,17 @@ export default function App({ Component, pageProps }) {
     }, []);
 
     return (
-        <BreakpointProvider>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </BreakpointProvider>
+        <>
+            <Head>
+                <link rel="shortcut icon" href="/images/icons/logo.ico" />
+            </Head>
+
+            <BreakpointProvider>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </BreakpointProvider>
+        </>
+
     );
 }
