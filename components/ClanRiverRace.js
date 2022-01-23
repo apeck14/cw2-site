@@ -95,6 +95,11 @@ export default function ClanRiverRace(props) {
         <>
             <Head>
                 <title>{clan.name} - River Race</title>
+                <meta content={`${clan.name} - River Race`} property="og:title" />
+                <meta content={`View river race details & projections.`} property="og:description" />
+                <meta content={`https://www.cwstats.com${router.asPath}`} property="og:url" />
+                <meta content={`${getClanBadge(clan.badgeId, clan.clanScore)}`} property="og:image" />
+                <meta content="#ff237a" data-react-helmet="true" name="theme-color" />
             </Head>
 
             <div className="container bg-white mt-3 rounded pt-3 pb-2">
