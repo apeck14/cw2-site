@@ -40,7 +40,7 @@ export default function ClanRiverRace(props) {
         rowClass: (clan.memberList.find(m => m.tag === p.tag)) ? '' : 'not-in-clan'
     })), [clan.participants]);
 
-    const clanStats = [
+    const clanStats = useMemo(() => [
         {
             title: 'Total Battles Remaining',
             value: 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0)
@@ -73,7 +73,7 @@ export default function ClanRiverRace(props) {
             title: "Worst Possible Place",
             value: getWorstFinish(data)
         }
-    ];
+    ], [clan, isColosseum]);
 
     const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c.periodPoints })));
 
@@ -95,6 +95,8 @@ export default function ClanRiverRace(props) {
         <>
             <Head>
                 <title>{clan.name} - River Race</title>
+                <meta content="website" property="og:type" />
+                <meta content="CW Stats" property="og:site_name" />
                 <meta content={`${clan.name} - River Race`} property="og:title" />
                 <meta content={`View river race details & projections.`} property="og:description" />
                 <meta content={`https://www.cwstats.com${router.asPath}`} property="og:url" />
