@@ -190,10 +190,13 @@ export default function ClanRiverRace(props) {
                 </Breakpoint>
 
                 <Breakpoint small down>
-                    <div className="d-flex align-items-center">
-                        <Image src={getClanBadge(clan.badgeId, clan.clanScore)} height="40" width="40" />
-                        <h4 className="my-auto">{clan.name}</h4>
+                    <div className="row">
+                        <div className="col d-flex align-items-center">
+                            <Image src={getClanBadge(clan.badgeId, clan.clanScore)} height="40" width="40" />
+                            <h4 className="my-auto">{clan.name}</h4>
+                        </div>
                     </div>
+
                     <div className="row gx-3">
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/fame.png" height="20" width="16" />
