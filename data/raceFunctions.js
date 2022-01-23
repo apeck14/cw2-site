@@ -21,6 +21,7 @@ export function getAvgFame(data) {
 }
 
 export function getProjFame(clan, isColosseum) {
+    if (clan.fame >= 10000) return 0;
     const maxDuelsCompletedToday = clan.participants.filter(p => p.decksUsedToday >= 2).length;
     const attacksCompletedToday = clan.participants.reduce((a, b) => a + b.decksUsedToday, 0);
     const currentFame = clan.periodPoints;
@@ -43,6 +44,7 @@ export function getProjFame(clan, isColosseum) {
 }
 
 export function getMaxFame(clan, isColosseum) {
+    if (clan.fame >= 10000) return 0;
     const currentFame = clan.periodPoints;
     const totalAttacksRemaining = 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0);
     const duelsRemaining = 50 - clan.participants.filter(p => p.decksUsedToday >= 2).length;
@@ -53,6 +55,7 @@ export function getMaxFame(clan, isColosseum) {
 }
 
 export function getMinFame(clan, isColosseum) {
+    if (clan.fame >= 10000) return 0;
     const currentFame = clan.periodPoints;
     const totalAttacksRemaining = 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0);
 
@@ -60,6 +63,7 @@ export function getMinFame(clan, isColosseum) {
 }
 
 export function getBestFinish(data) {
+    if (data.clan.fame >= 10000) return 'N/A';
     const isColosseum = data.periodType === "colosseum";
     const clanProjections = data.clans.map(c => {
         if (c.tag === data.clan.tag)
@@ -82,6 +86,7 @@ export function getBestFinish(data) {
 }
 
 export function getWorstFinish(data) {
+    if (data.clan.fame >= 10000) return 'N/A';
     const isColosseum = data.periodType === "colosseum";
     const clanProjections = data.clans.map(c => {
         if (c.tag === data.clan.tag)
