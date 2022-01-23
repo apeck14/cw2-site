@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { getClanBadge } from "../data/functions"
 import { getAvgFame, getBestFinish, getCurrentPlacements, getMaxFame, getMinFame, getProjFame, getProjFinish, getWorstFinish, placementStr } from "../data/raceFunctions";
 import Table from "./Table";
+import { Breakpoint } from 'react-socks';
 
 export default function ClanRiverRace(props) {
     const { data, router } = props;
@@ -25,7 +26,7 @@ export default function ClanRiverRace(props) {
             accessor: 'decksUsed'
         },
         {
-            Header: <Image src='/images/icons/boat-attack-points.png' height={20} width={20} className="h-100 d-inline-block" />,
+            Header: <Image src='/images/icons/boat-attack-points.png' height={20} width={20} />,
             accessor: 'boatAttacks'
         },
         {
@@ -34,7 +35,10 @@ export default function ClanRiverRace(props) {
         },
     ], []);
 
-    const tableData = useMemo(() => clan.participants.filter(p => clan.memberList.find(m => m.tag === p.tag) || p.fame > 0).sort((a, b) => b.fame - a.fame), [clan.participants]);
+    const tableData = useMemo(() => clan.participants.filter(p => clan.memberList.find(m => m.tag === p.tag) || p.fame > 0).sort((a, b) => b.fame - a.fame).map(p => ({
+        ...p,
+        rowClass: (clan.memberList.find(m => m.tag === p.tag)) ? '' : 'not-in-clan'
+    })), [clan.participants]);
 
     const clanStats = [
         {
@@ -73,17 +77,19 @@ export default function ClanRiverRace(props) {
 
     const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c.periodPoints })));
 
-    clans.forEach(c => {
+    clans.forEach(c => { //add placement image paths
         const placement = currentPlacements.find(cl => c.tag === cl.tag).placement;
-        c.placementImgPath = (placement < 0) ? null : `/images/icons/${placementStr(placement)}.png`
+        c.placementImgPath = (placement === Infinity) ? null : `/images/icons/${placementStr(placement)}.png`
     });
 
     clans.sort((a, b) => { //sort by placement
         const placementA = currentPlacements.find(cl => a.tag === cl.tag).placement;
         const placementB = currentPlacements.find(cl => b.tag === cl.tag).placement;
 
+        if (placementB === -1) return -1;
+
         return placementA - placementB;
-    })
+    });
 
     return (
         <>
@@ -113,27 +119,47 @@ export default function ClanRiverRace(props) {
                 <div>
                     {
                         clans.map(c => {
-                            const placementImage = (c.placementImgPath) ? <Image src={c.placementImgPath} height={30} width={30} /> : null;
+                            const placementImage = (c.placementImgPath) ? <Image src={c.placementImgPath} layout="fixed" width={30} height={30} /> : null;
                             return (
-                                <div className={`row cr-row mb-2 py-2 mw-100 mx-auto rounded ${(c.tag === clan.tag) ? `active` : ``}`} onClick={() => router.push(`/clans/${c.tag.substr(1)}/riverrace`)}>
-                                    <div className="col-sm d-flex align-items-center">
-                                        {placementImage}
-                                        <Image className="ms-1" src={getClanBadge(c.badgeId, c.clanScore)} height="30" width="30" />
-                                        <strong className="ms-1">{c.name}</strong>
-                                    </div>
-                                    <div className="col-2 d-flex align-items-center rr-col">
-                                        <Image src="/images/icons/boat-movement.png" height="20" width="24" />
-                                        <strong className="riverRaceText ms-1 px-2 rounded">{c.fame}</strong>
-                                    </div>
-                                    <div className="col-2 d-flex align-items-center rr-col">
-                                        <Image src="/images/icons/battle.png" height="22" width="22" />
-                                        <strong className="riverRaceText ms-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</strong>
-                                    </div>
-                                    <div className="col-2 d-flex align-items-center rr-col">
-                                        <Image src="/images/icons/fame.png" height="20" width="16" />
-                                        <strong className="riverRaceText ms-1 px-2 rounded">{c.periodPoints}</strong>
-                                    </div>
-                                </div>
+                                <div className={`row py-2 ps-1 cr-row rounded mb-1 mx-1 ${(c.tag === clan.tag) ? `active` : ``}`} onClick={() => router.push(`/clans/${c.tag.substr(1)}/riverrace`)}>
+                                    <Breakpoint medium down>
+                                        <div className="row">
+                                            <span className="col-auto d-flex align-items-center me-2">
+                                                {placementImage}
+                                            </span>
+                                            <div className="col ps-0">
+                                                <div className="d-flex align-items-center">
+                                                    <Image src={getClanBadge(c.badgeId, c.clanScore)} layout="fixed" height="30" width="30" />
+                                                    <strong>{c.name}</strong>
+                                                </div>
+                                                <div className="col d-flex align-items-center">
+                                                    <Image src="/images/icons/fame.png" height="20" width="16" />
+                                                    <small className="riverRaceText mx-1 px-2 rounded">{c.periodPoints}</small>
+                                                    <Image src="/images/icons/battle.png" height="20" width="20" />
+                                                    <small className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</small>
+                                                    <Image src="/images/icons/boat-movement.png" height="18" width="22" />
+                                                    <small className="riverRaceText ms-1 px-2 rounded">{c.fame}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Breakpoint>
+
+                                    <Breakpoint large up>
+                                        <div className="d-flex align-items-center">
+                                            {placementImage}
+                                            <Image className="ms-1" src={getClanBadge(c.badgeId, c.clanScore)} layout="fixed" height="30" width="30" />
+                                            <strong className="ms-1">{c.name}</strong>
+                                            <div className="d-flex align-items-center ms-auto me-0">
+                                                <Image src="/images/icons/boat-movement.png" height="20" width="24" />
+                                                <strong className="riverRaceText mx-1 px-2 rounded">{c.fame}</strong>
+                                                <Image src="/images/icons/battle.png" height="22" width="22" />
+                                                <strong className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</strong>
+                                                <Image src="/images/icons/fame.png" height="20" width="16" />
+                                                <strong className="riverRaceText ms-1 px-2 rounded">{c.periodPoints}</strong>
+                                            </div>
+                                        </div>
+                                    </Breakpoint>
+                                </ div>
                             )
                         })
                     }
@@ -141,24 +167,50 @@ export default function ClanRiverRace(props) {
 
                 <hr />
 
-                <div className="row gx-3">
-                    <div className="col-auto d-flex align-items-center">
+
+                <Breakpoint medium up>
+                    <div className="row gx-3">
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src={getClanBadge(clan.badgeId, clan.clanScore)} height="40" width="40" />
+                            <h4 className="my-auto">{clan.name}</h4>
+                        </div>
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/boat-movement.png" height="20" width="24" />
+                            <strong className="ms-1 rounded">{clan.fame}</strong>
+                        </div>
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/battle.png" height="22" width="22" />
+                            <strong className="ms-1 rounded">{getAvgFame(clan).toFixed(1)}</strong>
+                        </div>
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/fame.png" height="20" width="16" />
+                            <strong className="ms-1 rounded">{clan.periodPoints}</strong>
+                        </div>
+                    </div>
+                </Breakpoint>
+
+                <Breakpoint small down>
+                    <div className="d-flex align-items-center">
                         <Image src={getClanBadge(clan.badgeId, clan.clanScore)} height="40" width="40" />
                         <h4 className="my-auto">{clan.name}</h4>
                     </div>
-                    <div className="col-auto d-flex align-items-center">
-                        <Image src="/images/icons/boat-movement.png" height="20" width="24" />
-                        <strong className="ms-1 rounded">{clan.fame}</strong>
+                    <div className="row gx-3">
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/fame.png" height="20" width="16" />
+                            <strong className="ms-1 rounded">{clan.periodPoints}</strong>
+                        </div>
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/battle.png" height="22" width="22" />
+                            <strong className="ms-1 rounded">{getAvgFame(clan).toFixed(1)}</strong>
+                        </div>
+                        <div className="col-auto d-flex align-items-center">
+                            <Image src="/images/icons/boat-movement.png" height="20" width="24" />
+                            <strong className="ms-1 rounded">{clan.fame}</strong>
+                        </div>
                     </div>
-                    <div className="col-auto d-flex align-items-center">
-                        <Image src="/images/icons/battle.png" height="22" width="22" />
-                        <strong className="ms-1 rounded">{getAvgFame(clan).toFixed(1)}</strong>
-                    </div>
-                    <div className="col-auto d-flex align-items-center">
-                        <Image src="/images/icons/fame.png" height="20" width="16" />
-                        <strong className="ms-1 rounded">{clan.periodPoints}</strong>
-                    </div>
-                </div>
+                </Breakpoint>
+
+
 
                 <div className="my-2">
                     {

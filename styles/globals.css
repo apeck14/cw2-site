@@ -111,12 +111,6 @@ i.bi-paypal {
     max-width: none;
 }
 
-@media (min-width: 0px) and (max-width: 800px){  
-  .riverRaceText{
-      font-size: 0.5rem;
-  }
-
-  .rr-col {
-      margin-top: 10px;
-  }
+.not-in-clan {
+    background-color: #ffcccb;
 }

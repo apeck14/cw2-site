@@ -122,11 +122,10 @@ export function getProjFinish(data) {
 export function getCurrentPlacements(race) {
     // {tag: '', fame: 0}
     // return {tag: '', fame: 0, placement: 1}
-    console.log(race)
     const newRace = [...race];
 
     newRace.filter(c => c.fame === 0).forEach(c => {
-        newRace.find(cl => c.tag === cl.tag).placement = -1;
+        newRace.find(cl => c.tag === cl.tag).placement = Infinity;
     });
 
     const clansWithPointsSorted = newRace.filter(cl => cl.fame > 0).sort((a, b) => b.fame - a.fame);
