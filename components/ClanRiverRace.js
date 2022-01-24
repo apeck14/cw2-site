@@ -40,7 +40,7 @@ export default function ClanRiverRace(props) {
         rowClass: (clan.memberList.find(m => m.tag === p.tag)) ? '' : 'not-in-clan'
     })), [clan.participants]);
 
-    const clanStats = useMemo(() => [
+    const clanStats = [
         {
             title: 'Total Battles Remaining',
             value: 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0)
@@ -51,29 +51,29 @@ export default function ClanRiverRace(props) {
         },
         {
             title: "Projected Medals",
-            value: getProjFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getProjFame(clan, isColosseum)
         },
         {
             title: "Maximum Possible Medals",
-            value: getMaxFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getMaxFame(clan, isColosseum)
         },
         {
             title: "Minimum Possible Medals",
-            value: getMinFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getMinFame(clan, isColosseum)
         },
         {
             title: "Projected Place",
-            value: getProjFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getProjFinish(data)
         },
         {
             title: "Best Possible Place",
-            value: getBestFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getBestFinish(data)
         },
         {
             title: "Worst Possible Place",
-            value: getWorstFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getWorstFinish(data)
         }
-    ], [clan, isColosseum]);
+    ];
 
     const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c.periodPoints })));
 

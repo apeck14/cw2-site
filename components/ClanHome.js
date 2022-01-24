@@ -7,17 +7,19 @@ export default function ClanHome(props) {
         if (!props.data.globalRank) return <></>
 
         if (props.data.globalRank === 1)
-            return <span className='badge rounded-pill bg-primary bg-1 my-auto ms-2'>Top 1</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-1 my-auto ms-2'>#1</span>
         if (props.data.globalRank === 2)
-            return <span className='badge rounded-pill bg-primary bg-2 my-auto ms-2'>Top 2</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-2 my-auto ms-2'>#2</span>
         if (props.data.globalRank === 3)
-            return <span className='badge rounded-pill bg-primary bg-3 my-auto ms-2'>Top 3</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-3 my-auto ms-2'>#3</span>
         if (props.data.globalRank <= 10)
-            return <span className='badge rounded-pill bg-primary bg-10 my-auto ms-2'>Top 10</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-10 my-auto ms-2'>#{props.data.globalRank}</span>
         if (props.data.globalRank <= 25)
-            return <span className='badge rounded-pill bg-primary bg-25 my-auto ms-2'>Top 25</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-25 my-auto ms-2'>#{props.data.globalRank}</span>
         if (props.data.globalRank <= 100)
-            return <span className='badge rounded-pill bg-primary bg-100 my-auto ms-2'>Top 100</span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-100 my-auto ms-2'>
+                #{props.data.globalRank}
+            </span>
 
         return <></>
     }

@@ -45,11 +45,14 @@ export function getProjFame(clan, isColosseum) {
 
 export function getMaxFame(clan, isColosseum) {
     if (clan.fame >= 10000) return 0;
+
     const currentFame = clan.periodPoints;
     const totalAttacksRemaining = 200 - clan.participants.reduce((a, b) => a + b.decksUsedToday, 0);
     const duelsRemaining = 50 - clan.participants.filter(p => p.decksUsedToday >= 2).length;
 
     const maxFame = currentFame + (duelsRemaining * 500) + ((totalAttacksRemaining - (duelsRemaining * 2)) * 200);
+
+
 
     return (maxFame > 45000) ? 45000 : maxFame;
 }
