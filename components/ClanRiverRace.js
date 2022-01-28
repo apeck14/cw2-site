@@ -65,19 +65,19 @@ export default function ClanRiverRace({ data, router }) {
             accessor: 'name'
         },
         {
-            Header: <Image src="/images/icons/decksRemaining.png" height="20" width="20" />,
+            Header: <Image src="/images/icons/decksRemaining.png" height="20" width="20" layout="fixed" />,
             accessor: 'decksUsedToday'
         },
         {
-            Header: <Image src="/images/icons/decks.png" height="20" width="20" />,
+            Header: <Image src="/images/icons/decks.png" height="20" width="20" layout="fixed" />,
             accessor: 'decksUsed'
         },
         {
-            Header: <Image src="/images/icons/boat-attack-points.png" height="20" width="20" />,
+            Header: <Image src="/images/icons/boat-attack-points.png" height="20" width="20" layout="fixed" />,
             accessor: 'boatAttacks'
         },
         {
-            Header: <Image src="/images/icons/fame.png" height="20" width="15" />,
+            Header: <Image src="/images/icons/fame.png" height="20" width="15" layout="fixed" />,
             accessor: 'fame'
         },
     ], []);
