@@ -1,39 +1,120 @@
 import Head from "next/head"
 import Image from "next/image"
 import { useMemo } from "react";
-import { getClanBadge } from "../data/functions"
+import { getClanBadge, hexToRgbA } from "../data/functions"
 import { getAvgFame, getBestFinish, getCurrentPlacements, getMaxFame, getMinFame, getProjFame, getProjFinish, getWorstFinish, placementStr } from "../data/raceFunctions";
 import Table from "./Table";
 import { Breakpoint } from 'react-socks';
+import { Line } from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    Filler
+} from 'chart.js';
 
-export default function ClanRiverRace(props) {
-    const { data, router } = props;
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    Filler
+);
+
+export default function ClanRiverRace({ data, router }) {
     const { clan, clans } = data;
 
     const isColosseum = data.periodType === 'colosseum';
 
-    const columns = useMemo(() => [
+    const columnsLarge = useMemo(() => [
         {
             Header: 'Player',
             accessor: 'name'
         },
         {
-            Header: 'Today',
+            Header: 'Decks Today',
             accessor: 'decksUsedToday'
         },
         {
-            Header: 'Total',
+            Header: 'Total Decks',
             accessor: 'decksUsed'
         },
         {
-            Header: <Image src='/images/icons/boat-attack-points.png' height={20} width={20} />,
+            Header: 'Boats',
             accessor: 'boatAttacks'
         },
         {
-            Header: <Image src='/images/icons/fame.png' height={20} width={15} />,
+            Header: 'Medals',
             accessor: 'fame'
         },
     ], []);
+
+    const columnsSmall = useMemo(() => [
+        {
+            Header: 'Player',
+            accessor: 'name'
+        },
+        {
+            Header: <Image src="/images/icons/decksRemaining.png" height="20" width="20" />,
+            accessor: 'decksUsedToday'
+        },
+        {
+            Header: <Image src="/images/icons/decks.png" height="20" width="20" />,
+            accessor: 'decksUsed'
+        },
+        {
+            Header: <Image src="/images/icons/boat-attack-points.png" height="20" width="20" />,
+            accessor: 'boatAttacks'
+        },
+        {
+            Header: <Image src="/images/icons/fame.png" height="20" width="15" />,
+            accessor: 'fame'
+        },
+    ], []);
+
+    const hexColors = ["#8250C4", "#438FFF", "#D82C20", "#478F48", "#FFA500"];
+
+    const chartData = {
+        data: {
+            labels: data?.periodLogs.map(() => ''),
+            datasets: clans.map((c, i) => ({
+                label: c.name,
+                data: data.periodLogs.map(p => p.items.find(cl => cl.clan.tag === c.tag).pointsEarned),
+                fill: c.tag === clan.tag,
+                borderColor: hexColors[i],
+                backgroundColor: (c.tag === clan.tag) ? hexToRgbA(hexColors[i]) : 'transparent',
+                tension: 0.08
+            }))
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "War Cycle Daily Scores"
+                },
+                legend: {
+                    display: true,
+                    position: "top"
+                }
+            },
+            scales: {
+                y: {
+                    suggestedMin: 0,
+                    suggestedMax: 45000
+                }
+            }
+        }
+    }
 
     const tableData = useMemo(() => clan.participants.filter(p => clan.memberList.find(m => m.tag === p.tag) || p.fame > 0).sort((a, b) => b.fame - a.fame).map(p => ({
         ...p,
@@ -239,8 +320,17 @@ export default function ClanRiverRace(props) {
 
                 <hr />
 
-                <Table data={tableData} columns={columns} />
+                {/* Table */}
+                <Breakpoint medium up>
+                    <Table data={tableData} columns={columnsLarge} />
+                </Breakpoint>
 
+                <Breakpoint small down>
+                    <Table data={tableData} columns={columnsSmall} />
+                </Breakpoint>
+
+                {/* Graph */}
+                <Line data={chartData.data} options={chartData.options} />
             </div>
         </>
     )

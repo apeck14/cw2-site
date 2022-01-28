@@ -17,13 +17,13 @@ export default function Table({ columns, data }) {
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())} className='text-center'>
                                 {column.render('Header')}
                                 <span>
                                     {column.isSorted
                                         ? column.isSortedDesc
-                                            ? <i class="bi bi-caret-down-fill float-end"></i>
-                                            : <i class="bi bi-caret-up-fill float-end"></i>
+                                            ? <i class="bi bi-caret-down-fill"></i>
+                                            : <i class="bi bi-caret-up-fill"></i>
                                         : ''}
                                 </span>
                             </th>
