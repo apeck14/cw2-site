@@ -39,46 +39,56 @@ export default function ClanRiverRace({ data, router }) {
     const columnsLarge = useMemo(() => [
         {
             Header: 'Player',
-            accessor: 'name'
+            accessor: 'name',
+            title: 'Player'
         },
         {
             Header: 'Decks Today',
-            accessor: 'decksUsedToday'
+            accessor: 'decksUsedToday',
+            title: 'Decks Used Today'
         },
         {
             Header: 'Total Decks',
-            accessor: 'decksUsed'
+            accessor: 'decksUsed',
+            title: 'Total Decks Used (includes Training days)'
         },
         {
             Header: 'Boats',
-            accessor: 'boatAttacks'
+            accessor: 'boatAttacks',
+            title: 'Total Boat Attacks'
         },
         {
             Header: 'Medals',
-            accessor: 'fame'
+            accessor: 'fame',
+            title: 'Medals'
         },
     ], []);
 
     const columnsSmall = useMemo(() => [
         {
             Header: 'Player',
-            accessor: 'name'
+            accessor: 'name',
+            title: 'Player'
         },
         {
-            Header: <Image src="/images/icons/decksRemaining.png" height="20" width="20" layout="fixed" />,
-            accessor: 'decksUsedToday'
+            Header: <Image src="/images/icons/decksRemaining.png" height="20" width="20" />,
+            accessor: 'decksUsedToday',
+            title: 'Decks Used Today'
         },
         {
-            Header: <Image src="/images/icons/decks.png" height="20" width="20" layout="fixed" />,
-            accessor: 'decksUsed'
+            Header: <Image src="/images/icons/decks.png" height="20" width="20" />,
+            accessor: 'decksUsed',
+            title: 'Total Decks Used (includes Training days)'
         },
         {
-            Header: <Image src="/images/icons/boat-attack-points.png" height="20" width="20" layout="fixed" />,
-            accessor: 'boatAttacks'
+            Header: <Image src="/images/icons/boat-attack-points.png" height="20" width="20" />,
+            accessor: 'boatAttacks',
+            title: 'Total Boat Attacks'
         },
         {
-            Header: <Image src="/images/icons/fame.png" height="20" width="15" layout="fixed" />,
-            accessor: 'fame'
+            Header: <Image src="/images/icons/fame.png" height="20" width="15" />,
+            accessor: 'fame',
+            title: 'Medals'
         },
     ], []);
 
@@ -109,8 +119,8 @@ export default function ClanRiverRace({ data, router }) {
             },
             scales: {
                 y: {
-                    suggestedMin: 0,
-                    suggestedMax: 45000
+                    suggestedMin: 35000,
+                    max: 45000
                 }
             }
         }
@@ -323,14 +333,14 @@ export default function ClanRiverRace({ data, router }) {
                 {/* Table */}
                 <Breakpoint medium up>
                     <Table data={tableData} columns={columnsLarge} />
+                    <Line data={chartData.data} options={chartData.options} height="150px" widht="150px" />
                 </Breakpoint>
 
                 <Breakpoint small down>
                     <Table data={tableData} columns={columnsSmall} />
+                    <Line data={chartData.data} options={chartData.options} height="200px" widht="200px" />
                 </Breakpoint>
 
-                {/* Graph */}
-                <Line data={chartData.data} options={chartData.options} />
             </div>
         </>
     )

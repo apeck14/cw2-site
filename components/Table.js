@@ -17,7 +17,7 @@ export default function Table({ columns, data }) {
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps(column.getSortByToggleProps())} className='text-center'>
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())} className='text-center' title={column?.title}>
                                 {column.render('Header')}
                                 <span>
                                     {column.isSorted
