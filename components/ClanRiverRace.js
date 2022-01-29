@@ -71,22 +71,22 @@ export default function ClanRiverRace({ data, router }) {
             title: 'Player'
         },
         {
-            Header: <Image src="/images/icons/decksRemaining.png" height="16" width="16" />,
+            Header: 'Decks Today',
             accessor: 'decksUsedToday',
             title: 'Decks Used Today'
         },
         {
-            Header: <Image src="/images/icons/decks.png" height="16" width="16" />,
+            Header: 'Total Decks',
             accessor: 'decksUsed',
             title: 'Total Decks Used (includes Training days)'
         },
         {
-            Header: <Image src="/images/icons/boat-attack-points.png" height="16" width="16" />,
+            Header: 'Boats',
             accessor: 'boatAttacks',
             title: 'Total Boat Attacks'
         },
         {
-            Header: <Image src="/images/icons/fame.png" height="16" width="13" />,
+            Header: 'Medals',
             accessor: 'fame',
             title: 'Medals'
         },
