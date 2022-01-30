@@ -40,7 +40,8 @@ export default function ClanRiverRace({ data, router }) {
         {
             Header: 'Player',
             accessor: 'name',
-            title: 'Player'
+            title: 'Player',
+            maxWidth: 300
         },
         {
             Header: 'Decks Today',
@@ -50,17 +51,17 @@ export default function ClanRiverRace({ data, router }) {
         {
             Header: 'Total Decks',
             accessor: 'decksUsed',
-            title: 'Total Decks Used (includes Training days)'
+            title: 'Total Decks Used (includes Training days)',
         },
         {
             Header: 'Boats',
             accessor: 'boatAttacks',
-            title: 'Total Boat Attacks'
+            title: 'Total Boat Attacks',
         },
         {
             Header: 'Medals',
             accessor: 'fame',
-            title: 'Medals'
+            title: 'Medals',
         },
     ], []);
 
@@ -71,22 +72,22 @@ export default function ClanRiverRace({ data, router }) {
             title: 'Player'
         },
         {
-            Header: 'Decks Today',
+            Header: <Image src="/images/icons/decksRemaining.png" height={20} width={20} className="img" />,
             accessor: 'decksUsedToday',
             title: 'Decks Used Today'
         },
         {
-            Header: 'Total Decks',
+            Header: <Image src="/images/icons/decks.png" height={20} width={20} className="img" />,
             accessor: 'decksUsed',
             title: 'Total Decks Used (includes Training days)'
         },
         {
-            Header: 'Boats',
+            Header: <Image src="/images/icons/boat-attack-points.png" height={20} width={20} className="img" />,
             accessor: 'boatAttacks',
             title: 'Total Boat Attacks'
         },
         {
-            Header: 'Medals',
+            Header: <Image src="/images/icons/fame.png" height={20} width={15} className="img" />,
             accessor: 'fame',
             title: 'Medals'
         },

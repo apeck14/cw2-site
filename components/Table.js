@@ -12,13 +12,13 @@ export default function Table({ columns, data }) {
     } = useTable({ columns, data }, useSortBy)
 
     return (
-        <BTable bordered hover size="sm" {...getTableProps()}>
+        <BTable bordered hover size="sm" {...getTableProps()} className='table'>
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
                             <th {...column.getHeaderProps(column.getSortByToggleProps())} className='text-center' title={column?.title}>
-                                {column.render('Header')}
+                                <div className='img-container-th'>{column.render('Header')}</div>
                                 <span>
                                     {column.isSorted
                                         ? column.isSortedDesc
