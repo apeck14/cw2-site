@@ -108,6 +108,8 @@ export default function ClanRiverRace({ data, router }) {
             }))
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
@@ -334,13 +336,16 @@ export default function ClanRiverRace({ data, router }) {
                 {/* Table */}
                 <Breakpoint medium up>
                     <Table data={tableData} columns={columnsLarge} />
-                    <Line data={chartData.data} options={chartData.options} height="150px" widht="150px" />
+
                 </Breakpoint>
 
                 <Breakpoint small down>
                     <Table data={tableData} columns={columnsSmall} />
-                    <Line data={chartData.data} options={chartData.options} height="200px" widht="200px" />
                 </Breakpoint>
+
+                <div className="graph-container">
+                    <Line data={chartData.data} options={chartData.options} />
+                </div>
 
             </div>
         </>

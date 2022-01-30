@@ -124,6 +124,10 @@ i.bi-paypal {
 }
 
 .table {
-    table-layout: auto;
+    width: 100%;
+}
+
+.graph-container {
+    height: 50vh;
     width: 100%;
 }

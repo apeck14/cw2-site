@@ -22,8 +22,8 @@ export default function Table({ columns, data }) {
                                 <span>
                                     {column.isSorted
                                         ? column.isSortedDesc
-                                            ? <i class="bi bi-caret-down-fill"></i>
-                                            : <i class="bi bi-caret-up-fill"></i>
+                                            ? <i className="bi bi-caret-down-fill"></i>
+                                            : <i className="bi bi-caret-up-fill"></i>
                                         : ''}
                                 </span>
                             </th>
@@ -32,19 +32,18 @@ export default function Table({ columns, data }) {
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map(
-                    (row, i) => {
-                        prepareRow(row);
-                        return (
-                            <tr {...row.getRowProps()} className={row.original?.rowClass}>
-                                {row.cells.map(cell => {
-                                    return (
-                                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                    )
-                                })}
-                            </tr>
-                        )
-                    }
+                {rows.map(row => {
+                    prepareRow(row);
+                    return (
+                        <tr {...row.getRowProps()} className={row.original?.rowClass}>
+                            {row.cells.map(cell => {
+                                return (
+                                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                )
+                            })}
+                        </tr>
+                    )
+                }
                 )}
             </tbody>
         </BTable>
