@@ -347,6 +347,8 @@ export default function ClanRiverRace({ data, router }) {
                     <Line data={chartData.data} options={chartData.options} />
                 </div>
 
+                <p><small className="fst-italic">Click on clan names to toggle view</small></p>
+
             </div>
         </>
     )
