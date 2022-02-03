@@ -8,7 +8,7 @@ import Table from "./Table"
 const arenas = require('../data/arenas.json');
 
 export default function ClanHome({ data, router }) {
-    console.log(data.memberList[0])
+    console.log(data)
     const getBadge = () => {
         if (!data.globalRank) return <></>
 
@@ -123,6 +123,13 @@ export default function ClanHome({ data, router }) {
         <>
             <Head>
                 <title>{data.name} ({data.tag})</title>
+                <meta content="website" property="og:type" />
+                <meta content="CW Stats" property="og:site_name" />
+                <meta content={`${data.name} (${data.tag})`} property="og:title" />
+                <meta content={`${data.description}`} property="og:description" />
+                <meta content={`https://www.cwstats.com${router.asPath}`} property="og:url" />
+                <meta content={`${getClanBadge(data.badgeId, data.clanScore)}`} property="og:image" />
+                <meta content="#ff237a" data-react-helmet="true" name="theme-color" />
             </Head>
 
             <div className="container bg-white mt-3 rounded pt-3 pb-2">
