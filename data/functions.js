@@ -49,6 +49,12 @@ export function getLastSeenStr(timestamp) {
     let ms = now - date;
     let str = '';
 
+    const days = Math.floor(ms / 1000 / 60 / 60 / 24);
+    if (days) {
+        str += `${days}d `;
+        ms -= days * 1000 * 60 * 60 * 24;
+    }
+
     const hours = Math.floor(ms / 1000 / 60 / 60);
     if (hours) {
         str += `${hours}h `;
@@ -60,6 +66,8 @@ export function getLastSeenStr(timestamp) {
         str += `${mins}m `;
         ms -= mins * 1000 * 60;
     }
+
+    if (!days && !hours && !mins) return '0m';
 
     return str.trim();
 }

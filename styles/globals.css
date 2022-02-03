@@ -131,3 +131,8 @@ i.bi-paypal {
     height: 50vh;
     width: 100%;
 }
+
+.bg-yellow {
+    background-color: #fbb034;
+    background: linear-gradient(to bottom, #fbb034 30%, #ffdd00 90%)
+}

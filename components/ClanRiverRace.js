@@ -40,8 +40,7 @@ export default function ClanRiverRace({ data, router }) {
         {
             Header: 'Player',
             accessor: 'name',
-            title: 'Player',
-            maxWidth: 300
+            title: 'Player'
         },
         {
             Header: 'Decks Today',
@@ -222,13 +221,14 @@ export default function ClanRiverRace({ data, router }) {
                         clans.map(c => {
                             const placementImage = (c.placementImgPath) ? <Image src={c.placementImgPath} layout="fixed" width={30} height={30} /> : null;
                             return (
-                                <div className={`row py-2 ps-1 cr-row rounded mb-1 mx-1 ${(c.tag === clan.tag) ? `active` : ``}`} onClick={() => router.push(`/clans/${c.tag.substr(1)}/riverrace`)}>
+                                <div className={`row py-2 ps-0 cr-row rounded mb-1 mx-1 ${(c.tag === clan.tag) ? `active` : ``}`} onClick={() => router.push(`/clans/${c.tag.substr(1)}/riverrace`)}>
                                     <Breakpoint medium down>
                                         <div className="row">
-                                            <span className="col-auto d-flex align-items-center me-2">
-                                                {placementImage}
-                                            </span>
-                                            <div className="col ps-0">
+                                            {(placementImage) ?
+                                                <span className="col-auto d-flex align-items-center mx-1">{placementImage}</span> :
+                                                null
+                                            }
+                                            <div className="col">
                                                 <div className="d-flex align-items-center">
                                                     <Image src={getClanBadge(c.badgeId, c.clanScore)} layout="fixed" height="30" width="30" />
                                                     <strong>{c.name}</strong>
@@ -247,9 +247,12 @@ export default function ClanRiverRace({ data, router }) {
 
                                     <Breakpoint large up>
                                         <div className="d-flex align-items-center">
-                                            {placementImage}
-                                            <Image className="ms-1" src={getClanBadge(c.badgeId, c.clanScore)} layout="fixed" height="30" width="30" />
-                                            <strong className="ms-1">{c.name}</strong>
+                                            {(placementImage) ?
+                                                <span className="col-auto d-flex align-items-center me-1">{placementImage}</span> :
+                                                null
+                                            }
+                                            <Image src={getClanBadge(c.badgeId, c.clanScore)} layout="fixed" height="30" width="30" />
+                                            <strong>{c.name}</strong>
                                             <div className="d-flex align-items-center ms-auto me-0">
                                                 <Image src="/images/icons/boat-movement.png" height="20" width="24" />
                                                 <strong className="riverRaceText mx-1 px-2 rounded">{c.fame}</strong>

@@ -2,10 +2,13 @@ import Head from "next/head"
 import Image from "next/image"
 import { useMemo } from "react"
 import { Breakpoint } from "react-socks"
-import { formatRole, getClanBadge, getLastSeenStr } from "../data/functions"
+import { formatRole, getClanBadge, getLastSeenStr, parseDate } from "../data/functions"
+import PlayerCellMobile from "./PlayerCellMobile"
 import Table from "./Table"
+const arenas = require('../data/arenas.json');
 
 export default function ClanHome({ data, router }) {
+    console.log(data.memberList[0])
     const getBadge = () => {
         if (!data.globalRank) return <></>
 
@@ -20,20 +23,101 @@ export default function ClanHome({ data, router }) {
         if (data.globalRank <= 25)
             return <span title="Global Rank" className='badge rounded-pill bg-primary bg-25 my-auto ms-2'>#{data.globalRank}</span>
         if (data.globalRank <= 100)
-            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-100 my-auto ms-2'>
-                #{data.globalRank}
-            </span>
+            return <span title="Global Rank" className='badge rounded-pill bg-primary bg-100 my-auto ms-2'>#{data.globalRank}</span>
 
         return <></>
     }
 
-    const tableData = useMemo(() => {
+    const tableData = useMemo(() => data.memberList.map(p => ({
+        ...p,
+        role: formatRole(p.role)
+    })), []);
 
-    }, []);
+    const columns = useMemo(() => [
+        {
+            Header: '#',
+            accessor: 'clanRank',
+            title: 'Rank',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
+        },
+        {
+            Header: <i class="bi bi-trophy-fill"></i>,
+            accessor: 'trophies',
+            title: 'Trophies',
+            Cell: ({ row, value }) => <div className="d-flex justify-content-center">
+                <Image src={`/images/arenas/${arenas.find(a => a.id === row.original.arena.id).key}.png`} height="25" width="25" />
+                {value}
+            </div>
+        },
+        {
+            Header: 'Player',
+            accessor: 'name',
+            title: 'Player',
+            Cell: ({ row }) => <div>
+                {row.original.name}
+                <small className="text-secondary"> {row.original.tag}</small>
+            </div>
+        },
+        {
+            Header: 'Level',
+            accessor: 'expLevel',
+            title: 'Rank',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
+        },
+        {
+            Header: 'Role',
+            accessor: 'role',
+            title: 'Role',
+            sortType: useMemo(() => (rowA, rowB, colId) => {
+                const roles = ["Leader", "Co-Leader", "Elder", "Member"];
+                const a = roles.indexOf(rowA.values[colId]);
+                const b = roles.indexOf(rowB.values[colId]);
+                return a > b ? -1 : 1;
+            }, [])
+        },
+        {
+            Header: 'Last Seen',
+            accessor: 'lastSeen',
+            title: 'Last Seen',
+            sortType: useMemo(() => (rowA, rowB, colId) => {
+                const dateA = parseDate(rowA.values[colId]);
+                const dateB = parseDate(rowB.values[colId]);
 
-    const columns = [];
+                return dateA > dateB ? 1 : -1;
+            }, []),
+            Cell: ({ value }) => getLastSeenStr(value)
+        },
+    ], []);
 
-    const mobileColumns = [];
+    const mobileColumns = useMemo(() => [
+        {
+            Header: '#',
+            accessor: 'clanRank',
+            title: 'Rank',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
+        },
+        {
+            Header: <i class="bi bi-trophy-fill"></i>,
+            accessor: 'trophies',
+            title: 'Trophies',
+            Cell: ({ row, value }) => <div className="d-flex justify-content-center align-items-center">
+                <Image src={`/images/arenas/${arenas.find(a => a.id === row.original.arena.id).key}.png`} height="25" width="25" />
+                {value}
+            </div>
+        },
+        {
+            Header: 'Player',
+            accessor: 'name',
+            title: 'Player',
+            Cell: ({ row }) => <PlayerCellMobile name={row.original.name} role={row.original.role} lastSeen={row.original.lastSeen} />
+        },
+        {
+            Header: 'Level',
+            accessor: 'expLevel',
+            title: 'Level',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
+        }
+    ], []);
 
     return (
         <>
@@ -88,42 +172,15 @@ export default function ClanHome({ data, router }) {
 
                 <hr />
 
-
                 {/*roster*/}
-                <Breakpoint medium down>
+                <Breakpoint medium up>
+                    <Table data={tableData} columns={columns} />
+                </Breakpoint>
+
+                <Breakpoint small down>
                     <Table data={tableData} columns={mobileColumns} />
                 </Breakpoint>
 
-                <Breakpoint large up>
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Trophies</th>
-                                <th>Player</th>
-                                <th>Tag</th>
-                                <th>Level</th>
-                                <th>Role</th>
-                                <th>Last Seen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                data?.memberList.map((p, i) => {
-                                    return (<tr>
-                                        <td>{i + 1}</td>
-                                        <td>{p.trophies}</td>
-                                        <td>{p.name}</td>
-                                        <td>{p.tag}</td>
-                                        <td>{p.expLevel}</td>
-                                        <td>{formatRole(p.role)}</td>
-                                        <td>{getLastSeenStr(p.lastSeen)}</td>
-                                    </tr>)
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </Breakpoint>
             </div>
         </>
     )

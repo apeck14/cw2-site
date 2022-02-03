@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <link rel="shortcut icon" href="/images/icons/logo.ico" />
+                <link rel="shortcut icon" href="/images/icons/logo_icon.ico" />
             </Head>
 
             <BreakpointProvider>

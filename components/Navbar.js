@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
             <Link href="/">
                 <a className="navbar-brand ms-3">
-                    <Image src="/images/logo.png" alt="CW Stats logo" width="30" height="30" />
+                    <Image src="/images/icons/sample_logo.png" alt="CW Stats logo" width="30" height="30" />
                     <span className="ms-1">CW Stats</span>
                 </a>
             </Link>

@@ -1,0 +1,177 @@
+[
+    {
+        "id": 54000000,
+        "key": "arena0",
+        "title": "Training Camp",
+        "subtitle": "Training Camp",
+        "trophy_limit": 0
+    },
+    {
+        "id": 54000001,
+        "key": "arena1",
+        "title": "Arena 1",
+        "subtitle": "Goblin Stadium",
+        "trophy_limit": 0
+    },
+    {
+        "id": 54000002,
+        "key": "arena2",
+        "title": "Arena 2",
+        "subtitle": "Bone Pit",
+        "trophy_limit": 300
+    },
+    {
+        "id": 54000003,
+        "key": "arena3",
+        "title": "Arena 3",
+        "subtitle": "Barbarian Bowl",
+        "trophy_limit": 600
+    },
+    {
+        "id": 54000004,
+        "key": "arena4",
+        "title": "Arena 4",
+        "subtitle": "P.E.K.K.A's Playhouse",
+        "trophy_limit": 1000
+    },
+    {
+        "id": 54000005,
+        "key": "arena5",
+        "title": "Arena 5",
+        "subtitle": "Spell Valley",
+        "trophy_limit": 1300
+    },
+    {
+        "id": 54000006,
+        "key": "arena6",
+        "title": "Arena 6",
+        "subtitle": "Builder's Workshop",
+        "trophy_limit": 1600
+    },
+    {
+        "id": 54000008,
+        "key": "arena7",
+        "title": "Arena 7",
+        "subtitle": "Royal Arena",
+        "trophy_limit": 2000
+    },
+    {
+        "id": 54000009,
+        "key": "arena8",
+        "title": "Arena 8",
+        "subtitle": "Frozen Peak",
+        "trophy_limit": 2300
+    },
+    {
+        "id": 54000010,
+        "key": "arena9",
+        "title": "Arena 9",
+        "subtitle": "Jungle Arena",
+        "trophy_limit": 2600
+    },
+    {
+        "id": 54000007,
+        "key": "arena10",
+        "title": "Arena 10",
+        "subtitle": "Hog Mountain",
+        "trophy_limit": 3000
+    },
+    {
+        "id": 54000024,
+        "key": "arena11",
+        "title": "Arena 11",
+        "subtitle": "Electro Valley",
+        "trophy_limit": 3400
+    },
+    {
+        "id": 54000011,
+        "key": "arena12",
+        "title": "Arena 12",
+        "subtitle": "Spooky Town",
+        "trophy_limit": 3800
+    },
+    {
+        "id": 54000055,
+        "key": "arena13",
+        "title": "Arena 13",
+        "subtitle": "Rascal's Hideout",
+        "trophy_limit": 4200
+    },
+    {
+        "id": 54000056,
+        "key": "arena14",
+        "title": "Arena 14",
+        "subtitle": "Serenity Peak",
+        "trophy_limit": 4600
+    },
+    {
+        "id": 54000012,
+        "key": "arena15",
+        "title": "Legendary Arena",
+        "subtitle": "Legendary Arena",
+        "trophy_limit": 5000
+    },
+    {
+        "id": 54000013,
+        "key": "arena16",
+        "title": "Challenger II",
+        "subtitle": "Challenger II",
+        "trophy_limit": 5300
+    },
+    {
+        "id": 54000014,
+        "key": "arena17",
+        "title": "Challenger III",
+        "subtitle": "Challenger III",
+        "trophy_limit": 5600
+    },
+    {
+        "id": 54000015,
+        "key": "arena18",
+        "title": "Master I",
+        "subtitle": "Master I",
+        "trophy_limit": 6000
+    },
+    {
+        "id": 54000016,
+        "key": "arena19",
+        "title": "Master II",
+        "subtitle": "Master II",
+        "trophy_limit": 6300
+    },
+    {
+        "id": 54000017,
+        "key": "arena20",
+        "title": "Master III",
+        "subtitle": "Master III",
+        "trophy_limit": 6600
+    },
+    {
+        "id": 54000018,
+        "key": "arena21",
+        "title": "Champion",
+        "subtitle": "Champion",
+        "trophy_limit": 7000
+    },
+    {
+        "id": 54000019,
+        "key": "arena22",
+        "title": "Grand Champion",
+        "subtitle": "Grand Champion",
+        "trophy_limit": 7300
+    },
+    {
+        "id": 54000020,
+        "key": "arena23",
+        "title": "Royal Champion",
+        "subtitle": "Royal Champion",
+        "trophy_limit": 7600
+    },
+    {
+        "id": 54000031,
+        "key": "arena24",
+        "title": "Ultimate Champion",
+        "subtitle": "Ultimate Champion",
+        "trophy_limit": 8000
+    }
+]
