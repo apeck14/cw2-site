@@ -128,7 +128,7 @@ export default function ClanHome({ data, router }) {
                 <meta content={`${data.name} (${data.tag})`} property="og:title" />
                 <meta content={`${data.description}`} property="og:description" />
                 <meta content={`https://www.cwstats.com${router.asPath}`} property="og:url" />
-                <meta content={`${getClanBadge(data.badgeId, data.clanScore)}`} property="og:image" />
+                <meta content={`${getClanBadge(data.badgeId, data.clanWarTrophies)}`} property="og:image" />
                 <meta content="#ff237a" data-react-helmet="true" name="theme-color" />
             </Head>
 
