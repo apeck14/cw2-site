@@ -48,22 +48,26 @@ export default function ClanRiverRace({ data, router }) {
         {
             Header: 'Decks Today',
             accessor: 'decksUsedToday',
-            title: 'Decks Used Today'
+            title: 'Decks Used Today',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: 'Total Decks',
             accessor: 'decksUsed',
             title: 'Total Decks Used (includes Training days)',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: 'Boats',
             accessor: 'boatAttacks',
             title: 'Total Boat Attacks',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: 'Medals',
             accessor: 'fame',
             title: 'Medals',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
     ], []);
 
@@ -76,22 +80,26 @@ export default function ClanRiverRace({ data, router }) {
         {
             Header: <Image src="/images/icons/decksRemaining.png" height={20} width={20} className="img" />,
             accessor: 'decksUsedToday',
-            title: 'Decks Used Today'
+            title: 'Decks Used Today',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: <Image src="/images/icons/decks.png" height={20} width={20} className="img" />,
             accessor: 'decksUsed',
-            title: 'Total Decks Used (includes Training days)'
+            title: 'Total Decks Used (includes Training days)',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: <Image src="/images/icons/boat-attack-points.png" height={20} width={20} className="img" />,
             accessor: 'boatAttacks',
-            title: 'Total Boat Attacks'
+            title: 'Total Boat Attacks',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
         {
             Header: <Image src="/images/icons/fame.png" height={20} width={15} className="img" />,
             accessor: 'fame',
-            title: 'Medals'
+            title: 'Medals',
+            Cell: ({ value }) => <div className="text-center">{value}</div>
         },
     ], []);
 
