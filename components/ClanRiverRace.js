@@ -35,6 +35,9 @@ export default function ClanRiverRace({ data, router }) {
     const { clan, clans } = data;
 
     const isColosseum = data.periodType === 'colosseum';
+    const dayOfWeek = data.periodIndex % 7; // 0-6 (0,1,2 TRAINING, 3,4,5,6 BATTLE)
+    const movementPtsAccessor = (isColosseum) ? 'periodPoints' : 'fame';
+    const fameAccessor = (isColosseum) ? 'fame' : 'periodPoints';
 
     const columnsLarge = useMemo(() => [
         {
@@ -144,31 +147,31 @@ export default function ClanRiverRace({ data, router }) {
         },
         {
             title: "Projected Medals",
-            value: (data.periodType === 'training') ? 0 : getProjFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getProjFame(clan, isColosseum, dayOfWeek)
         },
         {
             title: "Maximum Possible Medals",
-            value: (data.periodType === 'training') ? 0 : getMaxFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getMaxFame(clan, isColosseum, dayOfWeek)
         },
         {
             title: "Minimum Possible Medals",
-            value: (data.periodType === 'training') ? 0 : getMinFame(clan, isColosseum)
+            value: (data.periodType === 'training') ? 0 : getMinFame(clan, isColosseum, dayOfWeek)
         },
         {
             title: "Projected Place",
-            value: (data.periodType === 'training') ? "N/A" : getProjFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getProjFinish(data, isColosseum, dayOfWeek)
         },
         {
             title: "Best Possible Place",
-            value: (data.periodType === 'training') ? "N/A" : getBestFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getBestFinish(data, isColosseum, dayOfWeek)
         },
         {
             title: "Worst Possible Place",
-            value: (data.periodType === 'training') ? "N/A" : getWorstFinish(data)
+            value: (data.periodType === 'training') ? "N/A" : getWorstFinish(data, isColosseum, dayOfWeek)
         }
     ];
 
-    const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c.periodPoints })));
+    const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c[fameAccessor] })));
 
     clans.forEach(c => { //add placement image paths
         const placement = currentPlacements.find(cl => c.tag === cl.tag).placement;
@@ -235,11 +238,11 @@ export default function ClanRiverRace({ data, router }) {
                                                 </div>
                                                 <div className="col d-flex align-items-center">
                                                     <Image src="/images/icons/fame.png" height="20" width="16" />
-                                                    <small className="riverRaceText mx-1 px-2 rounded">{c.periodPoints}</small>
+                                                    <small className="riverRaceText mx-1 px-2 rounded">{c[fameAccessor]}</small>
                                                     <Image src="/images/icons/battle.png" height="20" width="20" />
-                                                    <small className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</small>
+                                                    <small className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c, isColosseum, dayOfWeek).toFixed(1)}</small>
                                                     <Image src="/images/icons/boat-movement.png" height="18" width="22" />
-                                                    <small className="riverRaceText ms-1 px-2 rounded">{c.fame}</small>
+                                                    <small className="riverRaceText ms-1 px-2 rounded">{c[movementPtsAccessor]}</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,11 +258,11 @@ export default function ClanRiverRace({ data, router }) {
                                             <strong>{c.name}</strong>
                                             <div className="d-flex align-items-center ms-auto me-0">
                                                 <Image src="/images/icons/boat-movement.png" height="20" width="24" />
-                                                <strong className="riverRaceText mx-1 px-2 rounded">{c.fame}</strong>
+                                                <strong className="riverRaceText mx-1 px-2 rounded">{c[movementPtsAccessor]}</strong>
                                                 <Image src="/images/icons/battle.png" height="22" width="22" />
-                                                <strong className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c).toFixed(1)}</strong>
+                                                <strong className="riverRaceText mx-1 px-2 rounded">{getAvgFame(c, isColosseum, dayOfWeek).toFixed(1)}</strong>
                                                 <Image src="/images/icons/fame.png" height="20" width="16" />
-                                                <strong className="riverRaceText ms-1 px-2 rounded">{c.periodPoints}</strong>
+                                                <strong className="riverRaceText ms-1 px-2 rounded">{c[fameAccessor]}</strong>
                                             </div>
                                         </div>
                                     </Breakpoint>
@@ -280,15 +283,15 @@ export default function ClanRiverRace({ data, router }) {
                         </div>
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/boat-movement.png" height="20" width="24" />
-                            <strong className="ms-1 rounded">{clan.fame}</strong>
+                            <strong className="ms-1 rounded">{clan[movementPtsAccessor]}</strong>
                         </div>
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/battle.png" height="22" width="22" />
-                            <strong className="ms-1 rounded">{getAvgFame(clan).toFixed(1)}</strong>
+                            <strong className="ms-1 rounded">{getAvgFame(clan, isColosseum, dayOfWeek).toFixed(1)}</strong>
                         </div>
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/fame.png" height="20" width="16" />
-                            <strong className="ms-1 rounded">{clan.periodPoints}</strong>
+                            <strong className="ms-1 rounded">{clan[fameAccessor]}</strong>
                         </div>
                     </div>
                 </Breakpoint>
@@ -304,15 +307,15 @@ export default function ClanRiverRace({ data, router }) {
                     <div className="row gx-3">
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/fame.png" height="20" width="16" />
-                            <strong className="ms-1 rounded">{clan.periodPoints}</strong>
+                            <strong className="ms-1 rounded">{clan[fameAccessor]}</strong>
                         </div>
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/battle.png" height="22" width="22" />
-                            <strong className="ms-1 rounded">{getAvgFame(clan).toFixed(1)}</strong>
+                            <strong className="ms-1 rounded">{getAvgFame(clan, isColosseum, dayOfWeek).toFixed(1)}</strong>
                         </div>
                         <div className="col-auto d-flex align-items-center">
                             <Image src="/images/icons/boat-movement.png" height="20" width="24" />
-                            <strong className="ms-1 rounded">{clan.fame}</strong>
+                            <strong className="ms-1 rounded">{clan[movementPtsAccessor]}</strong>
                         </div>
                     </div>
                 </Breakpoint>

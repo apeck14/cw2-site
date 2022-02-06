@@ -12,10 +12,10 @@ export default function Table({ columns, data }) {
     } = useTable({ columns, data }, useSortBy)
 
     return (
-        <BTable bordered hover size="sm" {...getTableProps()} className='table'>
+        <BTable striped hover size="sm" {...getTableProps()} className='table'>
             <thead>
                 {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr {...headerGroup.getHeaderGroupProps()} className='bg-secondary text-light border-2 border-secondary'>
                         {headerGroup.headers.map(column => (
                             <th {...column.getHeaderProps(column.getSortByToggleProps())} className='text-center' title={column?.title}>
                                 <div className='img-container-th'>{column.render('Header')}</div>
