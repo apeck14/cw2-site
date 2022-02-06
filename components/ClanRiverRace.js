@@ -171,7 +171,7 @@ export default function ClanRiverRace({ data, router }) {
         }
     ];
 
-    const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c[fameAccessor] })));
+    const currentPlacements = getCurrentPlacements(clans.map(c => ({ tag: c.tag, fame: c[fameAccessor] })), isColosseum);
 
     clans.forEach(c => { //add placement image paths
         const placement = currentPlacements.find(cl => c.tag === cl.tag).placement;
