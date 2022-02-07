@@ -14,7 +14,7 @@ export function getAvgFame(data, isColosseum, dayOfWeek) {
     }
 
     if (attacksCompletedToday === 0) return 0;
-    return totalFame / attacksCompletedToday;
+    return currentFame / attacksCompletedToday;
 }
 
 export function getProjFame(clan, isColosseum, dayOfWeek) {

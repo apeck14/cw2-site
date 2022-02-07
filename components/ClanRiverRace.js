@@ -107,10 +107,10 @@ export default function ClanRiverRace({ data, router }) {
 
     const chartData = {
         data: {
-            labels: data?.periodLogs.map(() => ''),
+            labels: (data.periodLogs) ? data.periodLogs.map(() => '') : [''],
             datasets: clans.map((c, i) => ({
                 label: c.name,
-                data: data.periodLogs.map(p => p.items.find(cl => cl.clan.tag === c.tag).pointsEarned),
+                data: (data.periodLogs) ? data.periodLogs.map(p => p.items.find(cl => cl.clan.tag === c.tag).pointsEarned) : [],
                 fill: c.tag === clan.tag,
                 borderColor: hexColors[i],
                 backgroundColor: (c.tag === clan.tag) ? hexToRgbA(hexColors[i]) : 'transparent',
