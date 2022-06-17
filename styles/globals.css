@@ -1,138 +1,140 @@
 @font-face {
-    font-family: 'Inter';
-    src: url('../public/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
+	font-family: "Inter";
+	src: url("../public/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf") format("truetype");
 }
 
 body {
-  background-color: #D3D3D3;
-  font-family: Inter, sans-serif;
+	background-color: #d3d3d3;
+	font-family: Inter, sans-serif;
 }
 
 .navbar-brand {
-    display:flex;
-    align-items:center;
+	display: flex;
+	align-items: center;
 }
 
 .bg-white {
-    background:#ffffff !important;
+	background: #ffffff !important;
 }
 
-h1, h2 {
-    font-weight: 650;
+h1,
+h2 {
+	font-weight: 650;
 }
 
-pre { 
-    background-color: #eee;
+pre {
+	background-color: #eee;
 }
 
 .circular {
-    border-radius: 50%;
-    border:none;
+	border-radius: 50%;
+	border: none;
 }
 
-.circular:hover, .cirular:active {
-    filter: brightness(125%);
+.circular:hover,
+.cirular:active {
+	filter: brightness(125%);
 }
 
 .paypal {
-    background-color: #00457C;
+	background-color: #00457c;
 }
 
 i.bi-paypal {
-    color: white;
+	color: white;
 }
 
 .footerText {
-    color: #A9A9A9;
+	color: #a9a9a9;
 }
 
 .badge-wrapper {
-    margin-bottom:-8px;
+	margin-bottom: -8px;
 }
 
 .tag {
-    font-size: small;
-    color:gray
+	font-size: small;
+	color: gray;
 }
 
 .lb-header {
-    background-color: #485461;
-    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+	background-color: #485461;
+	background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
 }
 
 .bg-1 {
-    background-color: #facc6b;
-    background-image: linear-gradient(315deg, #facc6b 0%, #fabc3c 74%);
+	background-color: #facc6b;
+	background-image: linear-gradient(315deg, #facc6b 0%, #fabc3c 74%);
 }
 
 .bg-2 {
-    background-color: #bdd4e7;
-    background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
+	background-color: #bdd4e7;
+	background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
 }
 
 .bg-3 {
-    background-color: #772f1a;
-    background-image: linear-gradient(315deg, #772f1a 0%, #f2a65a 74%);
+	background-color: #772f1a;
+	background-image: linear-gradient(315deg, #772f1a 0%, #f2a65a 74%);
 }
 
 .bg-10 {
-    background-color: #7f53ac;
-    background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+	background-color: #7f53ac;
+	background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
 }
 
 .bg-25 {
-    background-color: #045de9;
-    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+	background-color: #045de9;
+	background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 }
 
 .bg-100 {
-    background-color: #3bb78f;
-    background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
+	background-color: #3bb78f;
+	background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
 }
 
 .riverRaceText {
-    background-color:#8d9eb8;
+	background-color: #9baac0;
 }
 
 .cr-row {
-    background: linear-gradient(to bottom, #dce6f4 50%, #c8d6ec 50%);
+	background: linear-gradient(to bottom, #dce6f4 50%, #c8d6ec 50%);
 }
 
 .cr-row.active {
-    background: linear-gradient(to bottom, #f8d443 50%, #f4b82f 50%);
+	background: linear-gradient(to bottom, #f8d443 50%, #f4b82f 50%);
 }
 
 .cr-row:hover {
-    box-shadow:2px 2px 8px #888888;;
-    cursor: pointer;
+	box-shadow: 2px 2px 8px #888888;
+	cursor: pointer;
 }
 
 .img {
-    max-width: 100%;
-    max-height: 100%;
-    vertical-align: middle;
+	max-width: 100%;
+	max-height: 100%;
+	vertical-align: middle;
 }
 
 .not-in-clan {
-    background-color: #ffcccb;
+	background-color: #ffcccb;
 }
 
 .img-container-th {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
 }
 
 .table {
-    width: 100%;
+	width: 100%;
 }
 
 .graph-container {
-    height: 50vh;
-    width: 100%;
+	height: 50vh;
+	width: 100%;
 }
 
 .bg-yellow {
-    background-color: #fbb034;
-    background: linear-gradient(to bottom, #fbb034 30%, #ffdd00 90%)
+	background-color: #fbb034;
+	background: linear-gradient(to bottom, #fbb034 30%, #ffdd00 90%);
 }
